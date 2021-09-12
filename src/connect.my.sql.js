@@ -10,15 +10,21 @@ module.exports = {
         if (arrayData) {
             return new Promise(data => {
                 db.query(sql, arrayData, function (error, result) {
-                    if (!!error) throw error;
-                    data({ success: true, result: result });
+                    if (!!error) {
+                        data({ success: false, result: error });
+                    } else {
+                        data({ success: true, result: result });
+                    }
                 });
             });
         }
         return new Promise(data => {
             db.query(sql, function (error, result) {
-                if (!!error) throw error;
-                data({ success: true, result: result });
+                if (!!error) {
+                    data({ success: false, result: error });
+                } else {
+                    data({ success: true, result: result });
+                }
             });
         });
     }
